@@ -29,5 +29,12 @@ func main() {
 
 	config.AutoMigrate(db)
 	handler.SetupRoutes(e, db)
-	e.Logger.Fatal(e.Start(":1222"))
+	// ポート番号を環境変数から読み取り、デフォルトのポート番号を設定
+	port := os.Getenv("PORT")
+	if port == "" {
+			port = "1222" // デフォルトのポート番号
+	}
+
+	e.Logger.Fatal(e.Start(":" + port))
+	// e.Logger.Fatal(e.Start(":1222"))
 }
